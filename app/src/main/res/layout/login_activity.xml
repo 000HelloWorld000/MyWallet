@@ -49,7 +49,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editEmail"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/labelEmail"
         app:layout_constraintStart_toStartOf="@+id/labelEmail"
@@ -66,7 +66,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <EditText
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editPassword"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/labelPassword"
         app:layout_constraintStart_toStartOf="@+id/labelPassword"
@@ -87,9 +87,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Login"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/editPassword"
+        app:layout_constraintStart_toStartOf="@+id/editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
     <Button
         android:id="@+id/btnSignUp"

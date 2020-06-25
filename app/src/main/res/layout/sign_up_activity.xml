@@ -46,7 +46,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập email của bạn."
+        android:hint="Type your Email"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
@@ -72,22 +72,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập email của bạn."
+        android:hint="Type your password"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:id="@+id/editTextPassword"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/labelPassword"
         app:layout_constraintStart_toStartOf="@+id/labelPassword"
         app:layout_constraintTop_toBottomOf="@+id/labelPassword" />
 
     <TextView
-        android:id="@+id/labelSDT"
+        android:id="@+id/lbConfirmPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Number phone"
+        android:text="Confirm password"
         android:textSize="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -98,25 +98,25 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập email của bạn."
+        android:hint="Confirm password"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/editTextNumberPhone"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="@+id/labelSDT"
-        app:layout_constraintStart_toStartOf="@+id/labelSDT"
-        app:layout_constraintTop_toBottomOf="@+id/labelSDT" />
+        android:id="@+id/editConfirmPass"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/lbConfirmPwd"
+        app:layout_constraintStart_toStartOf="@+id/lbConfirmPwd"
+        app:layout_constraintTop_toBottomOf="@+id/lbConfirmPwd" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Sign In"
-        app:layout_constraintEnd_toEndOf="@+id/editTextNumberPhone"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumberPhone"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPhone" />
+        app:layout_constraintEnd_toEndOf="@+id/editConfirmPass"
+        app:layout_constraintStart_toStartOf="@+id/editConfirmPass"
+        app:layout_constraintTop_toBottomOf="@+id/editConfirmPass" />
 
     <TextView
         android:id="@+id/version"
