@@ -6,10 +6,9 @@
 
     <ImageView
         android:id="@+id/imageWallet"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/wallet"
-        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +47,7 @@
         android:hint="Nhập email của bạn."
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editEmail"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/labelEmail"
@@ -74,7 +73,7 @@
         android:hint="Nhập email của bạn."
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/editPassword"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="@+id/labelPassword"
@@ -85,7 +84,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="@+id/editPassword"
         app:layout_constraintStart_toStartOf="@+id/editPassword"
@@ -95,12 +94,20 @@
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Sign Up"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
+    <ProgressBar
+        android:id="@+id/progress_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/version"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
     <TextView
         android:id="@+id/version"
         android:layout_width="wrap_content"
