@@ -70,12 +70,12 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập email của bạn."
+        android:hint="Nhập password của bạn."
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:id="@+id/editPassword"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/labelPassword"
         app:layout_constraintStart_toStartOf="@+id/labelPassword"
         app:layout_constraintTop_toBottomOf="@+id/labelPassword" />

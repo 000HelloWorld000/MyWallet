@@ -1,11 +1,13 @@
 package com.xuannghia.myewallet;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,15 +34,18 @@ import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Provider;
 import java.security.Security;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuthentication;
     private TextView txtShowEmail, txtShowAddressWallet;
     private Button btnLogout, btnTransaction;
+    private ImageView imgQR;
     private ProgressBar progressBar;
     private Button btnCreateWallet;
     private Web3j web3j;
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         txtShowAddressWallet = findViewById(R.id.txtAddressWallet);
         btnLogout = findViewById(R.id.btnLogout);
         btnTransaction = findViewById(R.id.btnTransaction);
+        imgQR = findViewById(R.id.qrCode);
 
         mAuthentication = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -70,11 +76,7 @@ public class MainActivity extends AppCompatActivity {
         currentEmail = mAuthentication.getCurrentUser().getEmail();
 
         walletPath = getFilesDir().getAbsolutePath();
-        try {
-            walletDirs = File.createTempFile("test", ".tmp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        walletDirs = new File(walletPath);
 
         web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/307a5c4d2cd14c4fa9c9299570ae7493"));
         try {
@@ -99,23 +101,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         txtShowEmail.setText(currentEmail);
-
+        createWallet(MainActivity.this, currentEmail, walletDirs);
         btnCreateWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createWallet(MainActivity.this, currentEmail, walletDirs);
                 addressWallet = getAddress(MainActivity.this, currentEmail, walletDirs);
-                sendTransaction(walletDirs);
                 writeDatabaseRemote(addressWallet, currentEmail, mAuthentication.getUid());
                 getDataRemoteDatabase(mAuthentication.getUid());
-                txtShowAddressWallet.setText(user.getAddress());
             }
         });
 
         btnTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendTransaction(walletDirs);
+                sendTransaction(currentEmail, walletDirs, web3j);
             }
         });
 
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     private void createWallet(Context context, String currentEmail, File walletDir) {
         try {
             fileName = WalletUtils.generateLightNewWalletFile(currentEmail, walletDir);
-            //walletDirs = new File(walletPath + "/" + fileName);
+            walletDirs = new File(walletPath + "/" + fileName);
             Toast.makeText(context, "New Wallet is created", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -169,10 +168,10 @@ public class MainActivity extends AppCompatActivity {
         return address;
     }
 
-    public void sendTransaction(File walletDirs) {
+    public void sendTransaction(String currentEmail, File walletDirs, Web3j web3j) {
         try {
             Credentials credentials = WalletUtils.loadCredentials(currentEmail, walletDirs);
-            TransactionReceipt receipt = Transfer.sendFunds(web3j, credentials, "0x51d14aeddac32ac88089164c51e2aa327be3736c", new BigDecimal(1), Convert.Unit.ETHER).sendAsync().get();
+            TransactionReceipt receipt = Transfer.sendFunds(web3j, credentials, "0x742193ba2df7c1badbde1b2f9b0dc3bb90a3ea57", new BigDecimal(1), Convert.Unit.ETHER).sendAsync().get();
             Toast.makeText(this, "Success transaction" + receipt.getTransactionHash(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -191,8 +190,11 @@ public class MainActivity extends AppCompatActivity {
         queryUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    user = snapshot.child(uuid).getValue(User.class);
-                    txtShowAddressWallet.setText(user.getAddress());
+                user = snapshot.child(uuid).getValue(User.class);
+                txtShowAddressWallet.setText(user.getAddress());
+                QRGEncoder qrgEncoder = new QRGEncoder(user.getAddress(), null, QRGContents.Type.TEXT, 10);
+                Bitmap qrBitma = qrgEncoder.getBitmap();
+                imgQR.setImageBitmap(qrBitma);
             }
 
             @Override
